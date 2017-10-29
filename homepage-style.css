@@ -5,7 +5,12 @@ body {
 
 h1 {
 	color: black;
+	background-color: floralwhite;
 	text-align: center;
+}
+
+p {
+	background-color: darkolivegreen;
 }
 
 @font-face {
