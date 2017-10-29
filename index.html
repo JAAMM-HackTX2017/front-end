@@ -1,15 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<link rel="stylesheet" type="text/css" href="homepage-style.css">
 	<head>
+		<meta charset="utf-8">
 		<title>Disaster Heat Maps Homepage</title>
+		<style>
+      		body, html { margin:0; padding:0; height:100%;}
+     		#heatmapContainerWrapper { width:100%; height:100%; position:absolute; }
+      		#heatmapContainer { width:100%; height:100%;}
+      		#all-examples-info { position:absolute; background:white; font-size:16px; padding:20px; top:100px; width:350px; line-height:150%; border:1px solid rgba(0,0,0,.2);}
+    	</style>
 	</head>
 	<body>
+		<script src="heatmap.js-master/build/heatmap.js"></script>
 		<h1>Disaster Heat Maps</h1>
 		<p>This website allows people to see heat maps of disaters in certain areas to better provide assitance to those areas. The heat maps will contain information on the serverity of the disasterous events.</p>
 		<h2>Disasters:</h2>
 		<a href="heatmap.js-master/examples/googlemaps-heatmap/disaster-one.html">Floods<a>
 		<p>More disaster heat maps coming soon...</p>
+		<div id="heatmapContainerWrapper">
+      		<div id="heatmapContainer">
+			</div>
+		</div>
+    	<script>
+     		window.onload = function() {
+       		// create a heatmap instance
+        		var heatmap = h337.create({
+          			container: document.getElementById('heatmapContainer'),
+          			maxOpacity: .6,
+          			radius: 50,
+         			blur: .90,
+       			 });
+        		var heatmapContainer = document.getElementById('heatmapContainerWrapper');
+
+        		heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
+         	 	// we need preventDefault for the touchmove
+         		e.preventDefault();
+         	 	var x = e.layerX;
+         	 	var y = e.layerY;
+         	 	if (e.touches) {
+         	   	x = e.touches[0].pageX;
+            	y = e.touches[0].pageY;
+          		}
+          		heatmap.addData({ x: x, y: y, value: 1 });
+        		};
+        		heatmapContainer.onclick = function(e) {
+         		var x = e.layerX;
+          		var y = e.layerY;
+          		heatmap.addData({ x: x, y: y, value: 1 });
+        		};
+     		 };
+    	</script>
 		<img width="960" height="540" src="img/Natural-Disasters.jpg">
 		<br/>
 	</body>
