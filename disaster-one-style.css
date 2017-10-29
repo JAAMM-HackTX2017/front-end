@@ -1,0 +1,10 @@
+body {
+	color: black;
+	font-family: "custom font";
+}
+
+@font-face {
+	font-family: "custom font";
+	src: url(MonoSocialIconsFont-1.10.ttf);
+	font-weight: normal;
+}
