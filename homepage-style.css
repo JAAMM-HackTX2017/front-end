@@ -1,0 +1,15 @@
+body {
+	background-color: floralwhite;
+	font-family: "custom font";
+}
+
+h1 {
+	color: black;
+	text-align: center;
+}
+
+@font-face {
+	font-family: "custom font";
+	src: url(MonoSocialIconsFont-1.10.ttf);
+	font-weight: normal;
+}
