@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Flood Heat Maps US</title>
+    <style>
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0; font-family:sans-serif; }
+      #map-canvas { height: 100% }
+      h1 { position:absolute; background:black; color:white; padding:10px; font-weight:200; z-index:10000;}
+      #all-examples-info { position:absolute; background:white; font-size:16px; padding:20px; bottom:20px; width:350px; line-height:150%; border:1px solid rgba(0,0,0,.2);}
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCQ8_K2fv-a4xptgVtkPqC8rw_e8BD4-Uk"></script>
+    <script src="heatmap.js-master/build/heatmap.js"></script>
+    <script src="heatmap.js-master/plugins/gmaps-heatmap/gmaps-heatmap.js"></script>
+  </head>
+  <body>
+    <h1>Flood Heat Maps in the US</h1>
+    <div id="map-canvas"></div>
+    <script>
+        // map center
+        var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
+        // map options,
+        var myOptions = {
+          zoom: 3,
+          center: myLatlng
+        };
+        // standard map
+        map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+        // heatmap layer
+        heatmap = new HeatmapOverlay(map, 
+          {
+            // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+            "radius": 2,
+            "maxOpacity": 1, 
+            // scales the radius based on map zoom
+            "scaleRadius": true, 
+            // if set to false the heatmap uses the global maximum for colorization
+            // if activated: uses the data maximum within the current map boundaries 
+            //   (there will always be a red spot with useLocalExtremas true)
+            "useLocalExtrema": true,
+            // which field name in your data represents the latitude - default "lat"
+            latField: 'lat',
+            // which field name in your data represents the longitude - default "lng"
+            lngField: 'lng',
+            // which field name in your data represents the data value - default "value"
+            valueField: 'count'
+          }
+        );
+        var testData = {"max": 10, "data": [{"lat": 39.0, "lng": -112.0, "value": 7}, {"lat": 35.0, "lng": -90.0, "value": 8}, {"lat": 48.0, "lng": -75.0, "value": 7}, {"lat": 36.0, "lng": -91.0, "value": 10}, {"lat": 46.0, "lng": -77.0, "value": 10}, {"lat": 44.0, "lng": -79.0, "value": 0}, {"lat": 40.0, "lng": -84.0, "value": 10}, {"lat": 31.0, "lng": -96.0, "value": 1}, {"lat": 44.0, "lng": -85.0, "value": 7}, {"lat": 34.0, "lng": -91.0, "value": 7}, {"lat": 32.0, "lng": -82.0, "value": 0}, {"lat": 46.0, "lng": -96.0, "value": 0}, {"lat": 36.0, "lng": -73.0, "value": 1}, {"lat": 32.0, "lng": -90.0, "value": 3}, {"lat": 44.0, "lng": -113.0, "value": 10}, {"lat": 30.0, "lng": -80.0, "value": 10}, {"lat": 30.0, "lng": -79.0, "value": 10}, {"lat": 21.0, "lng": -77.0, "value": 5}, {"lat": 36.0, "lng": -74.0, "value": 1}, {"lat": 24.0, "lng": -82.0, "value": 7}, {"lat": 36.0, "lng": -76.0, "value": 0}, {"lat": 40.0, "lng": -86.0, "value": 0}, {"lat": 27.0, "lng": -88.0, "value": 10}, {"lat": 29.0, "lng": -74.0, "value": 0}, {"lat": 39.0, "lng": -84.0, "value": 0}, {"lat": 38.0, "lng": -73.0, "value": 1}, {"lat": 32.0, "lng": -74.0, "value": 10}, {"lat": 21.0, "lng": -83.0, "value": 0}, {"lat": 33.0, "lng": -82.0, "value": 10}, {"lat": 20.0, "lng": -74.0, "value": 10}, {"lat": 25.0, "lng": -84.0, "value": 1}, {"lat": 37.0, "lng": -73.0, "value": 1}, {"lat": 33.0, "lng": -89.0, "value": 10}, {"lat": 27.0, "lng": -73.0, "value": 1}, {"lat": 28.0, "lng": -79.0, "value": 0}, {"lat": 26.0, "lng": -85.0, "value": 10}, {"lat": 31.0, "lng": -81.0, "value": 0}, {"lat": 37.0, "lng": -71.0, "value": 0}, {"lat": 23.0, "lng": -90.0, "value": 10}, {"lat": 35.0, "lng": -75.0, "value": 10}, {"lat": 37.0, "lng": -85.0, "value": 1}, {"lat": 22.0, "lng": -81.0, "value": 0}, {"lat": 23.0, "lng": -77.0, "value": 0}]};
+		heatmap.setData(testData);
+</script>
+  </body>
+</html>
